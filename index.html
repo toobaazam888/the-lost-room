@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>The Lost Room</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    background: #020202;
+
+    color: #eeeeee;
+
+    font-family: Arial, sans-serif;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+.hidden {
+
+    display: none !important;
+
+}
+
+
+/* WELCOME */
+
+#welcomeScreen {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: #020202;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    z-index: 1000;
+
+}
+
+#welcomeScreen .logo {
+
+    font-size: 70px;
+
+    color: #777777;
+
+    margin-bottom: 20px;
+
+    animation: pulse 2s infinite;
+
+}
+
+#welcomeScreen h1 {
+
+    font-size: 30px;
+
+    letter-spacing: 6px;
+
+    margin: 5px;
+
+}
+
+#welcomeScreen p {
+
+    color: #777777;
+
+    letter-spacing: 3px;
+
+}
+
+#welcomeScreen span {
+
+    color: #444444;
+
+    letter-spacing: 3px;
+
+}
+
+
+button {
+
+    margin-top: 20px;
+
+    padding: 13px 25px;
+
+    background: #111111;
+
+    color: white;
+
+    border: 1px solid #555555;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+}
+
+button:hover {
+
+    background: #292929;
+
+}
+
+
+/* MUSIC CONTROL BUTTON */
+
+#musicToggle {
+
+    position: fixed;
+
+    top: 20px;
+
+    right: 20px;
+
+    z-index: 2000;
+
+    margin: 0;
+
+    padding: 10px 14px;
+
+    font-size: 18px;
+
+    background: #111111;
+
+    border: 1px solid #444444;
+
+    border-radius: 50%;
+
+    width: 46px;
+
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* GAME */
+
+.game {
+
+    width: 92%;
+
+    max-width: 650px;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    background: #0b0b0b;
+
+    border: 1px solid #292929;
+
+    border-radius: 15px;
+
+    box-shadow: 0 0 40px rgba(255,255,255,0.04);
+
+}
+
+.game h1 {
+
+    letter-spacing: 5px;
+
+}
+
+.subtitle {
+
+    color: #777777;
+
+    margin-bottom: 30px;
+
+}
+
+.level-title {
+
+    color: #888888;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 15px;
+
+}
+
+.clue {
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    line-height: 1.8;
+
+    margin-bottom: 20px;
+
+}
+
+.mystery {
+
+    color: #aaaaaa;
+
+    font-style: italic;
+
+}
+
+.secret {
+
+    color: #dddddd;
+
+    letter-spacing: 1px;
+
+}
+
+.warning {
+
+    color: #777777;
+
+}
+
+input {
+
+    width: 85%;
+
+    padding: 13px;
+
+    background: #050505;
+
+    color: white;
+
+    border: 1px solid #444444;
+
+    border-radius: 7px;
+
+    text-align: center;
+
+    font-size: 15px;
+
+    outline: none;
+
+}
+
+.message {
+
+    margin-top: 15px;
+
+    color: #aaaaaa;
+
+}
+
+.complete {
+
+    padding: 45px 15px;
+
+}
+
+.symbol {
+
+    font-size: 65px;
+
+    margin-bottom: 20px;
+
+    animation: pulse 2s infinite;
+
+}
+
+.completeTitle {
+
+    color: #777777;
+
+    letter-spacing: 4px;
+
+    font-size: 12px;
+
+}
+
+.completeText {
+
+    color: #aaaaaa;
+
+    line-height: 1.8;
+
+}
+
+
+/* FINAL */
+
+.final {
+
+    padding: 30px 15px;
+
+    animation: reveal 3s ease;
+
+}
+
+.finalSymbol {
+
+    font-size: 65px;
+
+    animation: pulse 3s infinite;
+
+}
+
+.final h2 {
+
+    letter-spacing: 5px;
+
+}
+
+.finalText {
+
+    color: #999999;
+
+    line-height: 2;
+
+}
+
+.truth {
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    border-top: 1px solid #333333;
+
+    border-bottom: 1px solid #333333;
+
+    line-height: 2;
+
+}
+
+.lastLine {
+
+    margin-top: 30px;
+
+    color: #eeeeee;
+
+    letter-spacing: 2px;
+
+}
+
+.caseClosed {
+
+    margin-top: 35px;
+
+    color: #555555;
+
+    letter-spacing: 5px;
+
+    font-size: 12px;
+
+}
+
+
+@keyframes pulse {
+
+    0%, 100% {
+
+        opacity: 0.35;
+
+        transform: scale(0.95);
+
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform: scale(1.08);
+
+    }
+
+}
+
+
+@keyframes reveal {
+
+    from {
+
+        opacity: 0;
+
+        transform: scale(0.85);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" src="sound/energysound-stomp-drum-percussion-513744.mp3" loop preload="auto"></audio>
+
+<!-- MUSIC ON/OFF BUTTON -->
+<button id="musicToggle" onclick="toggleMusic()">🔊</button>
+
+
+<!-- WELCOME -->
+
+<div id="welcomeScreen">
+
+    <div class="logo">◈</div>
+
+    <h1>THE LOST ROOM</h1>
+
+    <p>WELCOME TO THE MYSTERY</p>
+
+    <span>CASE #001</span>
+
+    <button onclick="startMystery()">
+
+        ENTER THE MYSTERY
+
+    </button>
+
+</div>
+
+
+<!-- GAME -->
+
+<div class="game">
+
+    <h1>THE LOST ROOM</h1>
+
+    <p class="subtitle">
+
+        Some doors are better left unopened...
+
+    </p>
+
+
+    <!-- LEVEL 1 -->
+
+    <div id="level1">
+
+        <div class="level-title">
+
+            LEVEL 01 — THE AWAKENING
+
+        </div>
+
+        <div class="clue">
+
+            <p>
+
+                You wake up in a completely dark room.
+
+            </p>
+
+            <p>
+
+                You don't remember how you got here.
+
+            </p>
+
+            <p class="mystery">
+
+                There is a door in front of you.
+
+                It has no handle.
+
+            </p>
+
+            <p>
+
+                On the wall someone has written:
+
+            </p>
+
+            <p class="secret">
+
+                "YOU ALREADY HAVE THE KEY."
+
+            </p>
+
+            <p class="warning">
+
+                Think about what you are using right now...
+
+            </p>
+
+        </div>
+
+        <input id="answer1"
+        placeholder="Enter the answer">
+
+        <br>
+
+        <button onclick="checkAnswer1()">
+
+            UNLOCK
+
+        </button>
+
+        <div id="message1"
+        class="message"></div>
+
+    </div>
+
+
+    <!-- COMPLETE 1 -->
+
+    <div id="complete1"
+    class="hidden">
+
+        <div class="complete">
+
+            <div class="symbol">🕯️</div>
+
+            <div class="completeTitle">
+
+                LEVEL 01 COMPLETE
+
+            </div>
+
+            <p class="completeText">
+
+                The door opens...
+
+            </p>
+
+            <p class="completeText">
+
+                But there is no hallway.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- LEVEL 2 -->
+
+    <div id="level2"
+    class="hidden">
+
+        <div class="level-title">
+
+            LEVEL 02 — THE SILENT ROOM
+
+        </div>
+
+        <div class="clue">
+
+            <p>
+
+                You enter another room.
+
+            </p>
+
+            <p>
+
+                It looks exactly like the first.
+
+            </p>
+
+            <p class="mystery">
+
+                You take one step.
+
+            </p>
+
+            <p>
+
+                Step...
+
+            </p>
+
+            <p>
+
+                Another sound answers.
+
+            </p>
+
+            <p>
+
+                Step...
+
+            </p>
+
+            <p>
+
+                You stop.
+
+            </p>
+
+            <p class="secret">
+
+                The other footsteps don't.
+
+            </p>
+
+            <p class="warning">
+
+                What follows sound when nothing is visible?
+
+            </p>
+
+        </div>
+
+        <input id="answer2"
+        placeholder="Enter the answer">
+
+        <br>
+
+        <button onclick="checkAnswer2()">
+
+            CONTINUE
+
+        </button>
+
+        <div id="message2"
+        class="message"></div>
+
+    </div>
+
+
+    <!-- COMPLETE 2 -->
+
+    <div id="complete2"
+    class="hidden">
+
+        <div class="complete">
+
+            <div class="symbol">👁️</div>
+
+            <div class="completeTitle">
+
+                LEVEL 02 COMPLETE
+
+            </div>
+
+            <p class="completeText">
+
+                The footsteps suddenly stop.
+
+            </p>
+
+            <p class="completeText">
+
+                Something whispers your name.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- LEVEL 3 -->
+
+    <div id="level3"
+    class="hidden">
+
+        <div class="level-title">
+
+            LEVEL 03 — THE HIDDEN TRUTH
+
+        </div>
+
+        <div class="clue">
+
+            <p>
+
+                A small light appears.
+
+            </p>
+
+            <p>
+
+                On the table lies an old photograph.
+
+            </p>
+
+            <p>
+
+                The room in the photograph is the same room
+
+                you are standing in.
+
+            </p>
+
+            <p class="mystery">
+
+                But the photograph was taken years ago.
+
+            </p>
+
+            <p class="secret">
+
+                "I WAS HERE BEFORE YOU."
+
+            </p>
+
+            <p class="warning">
+
+                What object holds this memory?
+
+            </p>
+
+        </div>
+
+        <input id="answer3"
+        placeholder="Enter the answer">
+
+        <br>
+
+        <button onclick="checkAnswer3()">
+
+            REVEAL
+
+        </button>
+
+        <div id="message3"
+        class="message"></div>
+
+    </div>
+
+
+    <!-- COMPLETE 3 -->
+
+    <div id="complete3"
+    class="hidden">
+
+        <div class="complete">
+
+            <div class="symbol">🪞</div>
+
+            <div class="completeTitle">
+
+                LEVEL 03 COMPLETE
+
+            </div>
+
+            <p class="completeText">
+
+                You look closer at the photograph.
+
+            </p>
+
+            <p class="completeText">
+
+                The person inside it...
+
+            </p>
+
+            <p class="secret">
+
+                Looks like you.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- LEVEL 4 -->
+
+    <div id="level4"
+    class="hidden">
+
+        <div class="level-title">
+
+            LEVEL 04 — THE FINAL DOOR
+
+        </div>
+
+        <div class="clue">
+
+            <p>
+
+                The photograph suddenly disappears.
+
+            </p>
+
+            <p>
+
+                A final door appears.
+
+            </p>
+
+            <p class="mystery">
+
+                This time, there is a handle.
+
+            </p>
+
+            <p>
+
+                Above the door is one final message:
+
+            </p>
+
+            <p class="secret">
+
+                "THE THING YOU LOST WAS NEVER OUTSIDE."
+
+            </p>
+
+            <p>
+
+                You remember the room.
+
+            </p>
+
+            <p>
+
+                You remember the photograph.
+
+            </p>
+
+            <p>
+
+                You remember yourself.
+
+            </p>
+
+            <p class="warning">
+
+                What was really lost?
+
+            </p>
+
+        </div>
+
+        <input id="answer4"
+        placeholder="Enter the answer">
+
+        <br>
+
+        <button onclick="checkAnswer4()">
+
+            OPEN THE FINAL DOOR
+
+        </button>
+
+        <div id="message4"
+        class="message"></div>
+
+    </div>
+
+
+    <!-- FINAL -->
+
+    <div id="ending"
+    class="hidden">
+
+        <div class="final">
+
+            <div class="finalSymbol">
+
+                ☠️
+
+            </div>
+
+            <h2>
+
+                THE FINAL TRUTH
+
+            </h2>
+
+            <div class="finalText">
+
+                <p>
+
+                    The door opens.
+
+                </p>
+
+                <p>
+
+                    There is nothing behind it.
+
+                </p>
+
+                <p>
+
+                    Only darkness.
+
+                </p>
+
+            </div>
+
+            <div class="truth">
+
+                <p>
+
+                    You look at the photograph one last time.
+
+                </p>
+
+                <p>
+
+                    This time you notice something.
+
+                </p>
+
+                <p class="secret">
+
+                    The person in the photograph is YOU.
+
+                </p>
+
+                <p>
+
+                    And the date on the photograph...
+
+                </p>
+
+                <p class="secret">
+
+                    IS TOMORROW.
+
+                </p>
+
+                <p>
+
+                    The room was never a prison.
+
+                </p>
+
+                <p>
+
+                    It was a test.
+
+                </p>
+
+                <p>
+
+                    Every clue.
+
+                    Every door.
+
+                    Every sound.
+
+                </p>
+
+                <p>
+
+                    Was leading you here.
+
+                </p>
+
+            </div>
+
+            <p class="lastLine">
+
+                YOU WERE NEVER LOST.
+
+            </p>
+
+            <p class="lastLine">
+
+                YOU WERE BEING LED HERE.
+
+            </p>
+
+            <div class="caseClosed">
+
+                CASE #001 — CLOSED
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   BACKGROUND MUSIC
+========================= */
+
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
+bgMusic.volume = 0.25;
+let musicEnabled = true;
+
+function toggleMusic() {
+
+    musicEnabled = !musicEnabled;
+
+    if (musicEnabled) {
+
+        bgMusic.play();
+
+        musicToggle.textContent = "🔊";
+
+    } else {
+
+        bgMusic.pause();
+
+        musicToggle.textContent = "🔇";
+
+    }
+
+}
+
+
+/* =========================
+   SOUND SYSTEM
+========================= */
+
+let audioContext = null;
+
+
+function startSound() {
+
+    if (audioContext === null) {
+
+        audioContext = new (
+
+            window.AudioContext ||
+
+            window.webkitAudioContext
+
+        )();
+
+    }
+
+    if (audioContext.state === "suspended") {
+
+        audioContext.resume();
+
+    }
+
+}
+
+
+/* NORMAL MYSTERY SOUND */
+
+function playSound() {
+
+    startSound();
+
+    let oscillator =
+        audioContext.createOscillator();
+
+    let gain =
+        audioContext.createGain();
+
+
+    oscillator.type = "sine";
+
+    oscillator.frequency.value = 90;
+
+
+    gain.gain.setValueAtTime(
+
+        0.08,
+
+        audioContext.currentTime
+
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+
+        0.001,
+
+        audioContext.currentTime + 1
+
+    );
+
+
+    oscillator.connect(gain);
+
+    gain.connect(audioContext.destination);
+
+
+    oscillator.start();
+
+    oscillator.stop(
+
+        audioContext.currentTime + 1
+
+    );
+
+}
+
+
+/* DEEP MYSTERY SOUND */
+
+function mysterySound() {
+
+    startSound();
+
+    let oscillator =
+        audioContext.createOscillator();
+
+    let gain =
+        audioContext.createGain();
+
+
+    oscillator.type = "sine";
+
+    oscillator.frequency.setValueAtTime(
+
+        180,
+
+        audioContext.currentTime
+
+    );
+
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+
+        55,
+
+        audioContext.currentTime + 2
+
+    );
+
+
+    gain.gain.setValueAtTime(
+
+        0.09,
+
+        audioContext.currentTime
+
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+
+        0.001,
+
+        audioContext.currentTime + 2
+
+    );
+
+
+    oscillator.connect(gain);
+
+    gain.connect(audioContext.destination);
+
+
+    oscillator.start();
+
+    oscillator.stop(
+
+        audioContext.currentTime + 2
+
+    );
+
+}
+
+
+/* FINAL REVEAL SOUND */
+
+function finalSound() {
+
+    startSound();
+
+    let oscillator =
+        audioContext.createOscillator();
+
+    let gain =
+        audioContext.createGain();
+
+
+    oscillator.type = "triangle";
+
+    oscillator.frequency.setValueAtTime(
+
+        260,
+
+        audioContext.currentTime
+
+    );
+
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+
+        45,
+
+        audioContext.currentTime + 3
+
+    );
+
+
+    gain.gain.setValueAtTime(
+
+        0.12,
+
+        audioContext.currentTime
+
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+
+        0.001,
+
+        audioContext.currentTime + 3
+
+    );
+
+
+    oscillator.connect(gain);
+
+    gain.connect(audioContext.destination);
+
+
+    oscillator.start();
+
+    oscillator.stop(
+
+        audioContext.currentTime + 3
+
+    );
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+function startMystery() {
+
+    startSound();
+
+    mysterySound();
+
+    if (musicEnabled) {
+
+        bgMusic.play();
+
+    }
+
+    document.getElementById("welcomeScreen")
+
+        .classList.add("hidden");
+
+}
+
+
+/* =========================
+   LEVEL TRANSITION
+========================= */
+
+function showLevelComplete(
+
+    currentLevel,
+
+    completeLevel,
+
+    nextLevel,
+
+    delay
+
+) {
+
+    document.getElementById(currentLevel)
+
+        .classList.add("hidden");
+
+
+    document.getElementById(completeLevel)
+
+        .classList.remove("hidden");
+
+
+    mysterySound();
+
+
+    setTimeout(function() {
+
+
+        document.getElementById(completeLevel)
+
+            .classList.add("hidden");
+
+
+        document.getElementById(nextLevel)
+
+            .classList.remove("hidden");
+
+
+        playSound();
+
+
+    }, delay);
+
+}
+
+
+/* =========================
+   LEVEL 1
+========================= */
+
+function checkAnswer1() {
+
+    let answer = document
+
+        .getElementById("answer1")
+
+        .value
+
+        .trim()
+
+        .toLowerCase();
+
+
+    let message = document
+
+        .getElementById("message1");
+
+
+    if (answer === "keyboard") {
+
+
+        message.innerHTML =
+
+            "The door recognizes you...";
+
+
+        showLevelComplete(
+
+            "level1",
+
+            "complete1",
+
+            "level2",
+
+            6000
+
+        );
+
+
+    } else {
+
+
+        message.innerHTML =
+
+            "Wrong. The room remains silent.";
+
+
+        playSound();
+
+    }
+
+}
+
+
+/* =========================
+   LEVEL 2
+========================= */
+
+function checkAnswer2() {
+
+    let answer = document
+
+        .getElementById("answer2")
+
+        .value
+
+        .trim()
+
+        .toLowerCase();
+
+
+    let message = document
+
+        .getElementById("message2");
+
+
+    if (
+
+        answer === "echo" ||
+
+        answer === "an echo"
+
+    ) {
+
+
+        message.innerHTML =
+
+            "Something heard your answer...";
+
+
+        showLevelComplete(
+
+            "level2",
+
+            "complete2",
+
+            "level3",
+
+            6000
+
+        );
+
+
+    } else {
+
+
+        message.innerHTML =
+
+            "No... listen carefully.";
+
+
+        playSound();
+
+    }
+
+}
+
+
+/* =========================
+   LEVEL 3
+========================= */
+
+function checkAnswer3() {
+
+    let answer = document
+
+        .getElementById("answer3")
+
+        .value
+
+        .trim()
+
+        .toLowerCase();
+
+
+    let message = document
+
+        .getElementById("message3");
+
+
+    if (
+
+        answer === "photograph" ||
+
+        answer === "photo" ||
+
+        answer === "picture"
+
+    ) {
+
+
+        message.innerHTML =
+
+            "The photograph reveals something...";
+
+
+        showLevelComplete(
+
+            "level3",
+
+            "complete3",
+
+            "level4",
+
+            6000
+
+        );
+
+
+    } else {
+
+
+        message.innerHTML =
+
+            "The photograph remains unreadable.";
+
+
+        playSound();
+
+    }
+
+}
+
+
+/* =========================
+   LEVEL 4
+========================= */
+
+function checkAnswer4() {
+
+    let answer = document
+
+        .getElementById("answer4")
+
+        .value
+
+        .trim()
+
+        .toLowerCase();
+
+
+    let message = document
+
+        .getElementById("message4");
+
+
+    if (
+
+        answer === "memory" ||
+
+        answer === "memories" ||
+
+        answer === "truth"
+
+    ) {
+
+
+        message.innerHTML =
+
+            "The final door is opening...";
+
+
+        finalSound();
+
+
+        setTimeout(function() {
+
+
+            document.getElementById("level4")
+
+                .classList.add("hidden");
+
+
+            document.getElementById("ending")
+
+                .classList.remove("hidden");
+
+
+            finalSound();
+
+
+        }, 3000);
+
+
+    } else {
+
+
+        message.innerHTML =
+
+            "That isn't what you lost.";
+
+
+        playSound();
+
+    }
+
+}
+
+
+</script>
+
+</body>
+
+</html>
